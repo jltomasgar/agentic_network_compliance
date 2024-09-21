@@ -1,0 +1,13 @@
+Network Architecture Standards
+------------------------------
+
+
+* Cisco XR devices:
+
+    - All interface descriptions must end with the string ' -XR'.
+
+
+
+* Cisco XE devices:
+
+    - All interface descriptions must end with the string ' -XE'.

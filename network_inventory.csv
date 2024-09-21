@@ -1,0 +1,3 @@
+Device IP/DNS, IOS Type, username, password, secret
+devnetsandboxiosxe.cisco.com,XE,<username>,<password>,<secret>
+sandbox-iosxr-1.cisco.com,XR,<username>,<password>,<secret>
