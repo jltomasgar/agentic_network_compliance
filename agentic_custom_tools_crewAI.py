@@ -1,11 +1,11 @@
+from crewai_tools import BaseTool
 import paramiko
 import time
-from crewai_tools import BaseTool
 import os
 
 class SSHRetriever(BaseTool):
     name: str = "SSH_Retrieve_Tool"
-    description: str = "Connects to a remote device via SSH, retrieves its configurtion and saves it to a file. "
+    description: str = "Connects to a remote device via SSH, retrieves its configuration and saves it to a file. "
     def _run(self, hostname: str, username: str, password: str, command: str) -> dict:
         try:
             ssh = paramiko.SSHClient()
@@ -50,3 +50,16 @@ class SSHConfig(BaseTool):
             return l_config_output
         except Exception as e:
             return f"Failed to retrieve config: {str(e)}"
+
+
+class File_writer(BaseTool):
+    name: str = "File writer"
+    description: str = "Writes contents to a local file. "
+    def _run(self, file_name: str, contents: str) -> str:
+        try:
+            with open(file_name, "w") as f:
+                f.write(contents)
+            print(f"File written to {file_name}.")
+            return contents
+        except Exception:
+            return "Failed to save proposed changes."

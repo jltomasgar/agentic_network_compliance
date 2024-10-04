@@ -6,12 +6,12 @@ from langchain.globals import set_verbose
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_openai import ChatOpenAI
 from langchain_community.agent_toolkits import FileManagementToolkit
-from agentic_custom_tools import SSHRetriever, SSHConfig
+from agentic_custom_tools_langchain import SSHRetriever, SSHConfig
 
 llm = ChatOpenAI(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     temperature=0,
-    api_key="<your_API_key>",
+    api_key="your_API_key",
 )
 set_verbose(True)
 
@@ -39,7 +39,7 @@ prompt1 = ChatPromptTemplate.from_messages([
 agent1 = create_tool_calling_agent(llm, tools1, prompt1)
 agent_executor1 = AgentExecutor(agent=agent1, tools=tools1)
 output_agent1 = agent_executor1.invoke({"input": "Read the file network_inventory.csv where you can find a list of remote Cisco devices together with their SSH credentials. "
-                                "Connect to the remote devices via SSH, and retrieve their running configurations. "
+                                "Connect to the remote devices via SSH, retrieve their running configurations. "
                                 })
 print(output_agent1['output'])
 

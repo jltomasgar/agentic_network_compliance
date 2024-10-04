@@ -4,10 +4,10 @@ warnings.filterwarnings('ignore')
 import os
 from crewai import Agent, Task, Crew, Process
 from crewai_tools import FileReadTool, FileWriterTool, DirectoryReadTool
-from agentic_custom_tools import SSHRetriever, SSHConfig
+from agentic_custom_tools_crewAI import SSHRetriever, SSHConfig
 
 
-os.environ["OPENAI_MODEL_NAME"] = 'gpt-4o'
+os.environ["OPENAI_MODEL_NAME"] = 'gpt-4o-mini'
 os.environ["OPENAI_API_KEY"] = "<your_API_key>"
 
 # Defining instances of the tools
@@ -69,6 +69,16 @@ network_configurator = Agent(
 
 # Defining the tasks
 
+retrieve_configurations_task = Task(
+    description=(
+        "Read the file network_inventory.csv where you can find a list of remote Cisco devices together with their SSH credentials. "
+        "Connect to the remote devices via SSH, retrieve their running configurations and save them to local files. "
+    ),
+    expected_output='One file for each network device, containing its running configuration.',
+    agent=network_retriever,
+    verbose=True,
+)
+
 network_standard_auditor_task = Task(
     description=(
         "List the contents of the folder ./configs/ where each file's name "
@@ -90,16 +100,6 @@ network_standard_auditor_task = Task(
     allow_delegation=False,
     verbose=True,
     memory=False,
-)
-
-retrieve_configurations_task = Task(
-    description=(
-        "Read the file network_inventory.csv where you can find a list of remote Cisco devices together with their SSH credentials. "
-        "Connect to the remote devices via SSH, retrieve their running configurations and save them to local files. "
-    ),
-    expected_output='One file for each network device, containing its running configuration.',
-    agent=network_retriever,
-    verbose=True,
 )
 
 Network_configurator_task = Task(
