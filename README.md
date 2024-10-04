@@ -1,4 +1,4 @@
-# Network Compliance crew of agents using crewAI and LangChain.
+# Network Compliance with agents by crewAI and LangChain.
 Use LLMs to make the network observe Network Architecture Standards, using an agentic approach.
 
 Proposed one solution based on LangChain and another based on crewAI. Both solutions rely on the capability of LLMs to interpret what we need in natural language, and take apropriate actions like make SSH connections and generate CLI commands to remediate non-compliances.
